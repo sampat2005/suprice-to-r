@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -301,6 +302,7 @@ p {
 }
 
 .photo-gallery img {
+  display: block;
   width: 100%;
   aspect-ratio: 1;
   object-fit: cover;
@@ -315,6 +317,7 @@ p {
 .photo-gallery figcaption {
   color: #d6b477;
   font-size: 11px;
+  line-height: 1.5;
   margin-top: 6px;
 }
 
@@ -397,6 +400,8 @@ p {
   background: #211711;
   color: white;
   font-size: 24px;
+  border: 1px solid #d6b47788;
+  cursor: pointer;
 }
 
 .final-reveal {
@@ -433,6 +438,10 @@ p {
   main { padding: 22px 17px 28px; }
   .page { min-height: 560px; }
   .letter { padding: 21px; }
+  .music-dock {
+    right: 10px;
+    bottom: 10px;
+  }
 }
 </style>
 </head>
@@ -562,13 +571,40 @@ p {
   <p>Seven little frames for the moments you want to keep close.</p>
 
   <div class="photo-gallery">
-    <figure><img src="IMAGE/image1.jpeg" alt="Memory 1" onclick="openPhoto(this)"><figcaption>OUR BEST DAY FOR EVER</figcaption></figure>
-    <figure><img src="IMAGE/image2.jpg" alt="Memory 2" onclick="openPhoto(this)"><figcaption>THE LOTUS EYES</figcaption></figure>
-    <figure><img src="IMAGE/image3.jpg" alt="Memory 3" onclick="openPhoto(this)"><figcaption>PRABHU WAIT FOR MAHAPRASAD</figcaption></figure>
-    <figure><img src="IMAGE/image4.jpeg" alt="Memory 4" onclick="openPhoto(this)"><figcaption>BEST IMAGE OF PURI TRIP</figcaption></figure>
-    <figure><img src="IMAGE/image5.jpeg" alt="Memory 5" onclick="openPhoto(this)"><figcaption>UNEXPLAED MOMENT ON THE BANCH OF PW CLASSROOM</figcaption></figure>
-    <figure><img src="IMAGE/image6.jpeg" alt="Memory 6" onclick="openPhoto(this)"><figcaption>LIFETIME MEMORIES</figcaption></figure>
-    <figure><img src="IMAGE/image7.jpeg" alt="Memory 7" onclick="openPhoto(this)"><figcaption>BEST SELFIE AWORD OF 2024</figcaption></figure>
+    <figure>
+      <img src="image1.jpeg" alt="Memory 1" loading="lazy" onclick="openPhoto(this)">
+      <figcaption>OUR BEST DAY FOREVER</figcaption>
+    </figure>
+
+    <figure>
+      <img src="image2.jpeg" alt="Memory 2" loading="lazy" onclick="openPhoto(this)">
+      <figcaption>THE LOTUS EYES</figcaption>
+    </figure>
+
+    <figure>
+      <img src="image3.jpeg" alt="Memory 3" loading="lazy" onclick="openPhoto(this)">
+      <figcaption>PRABHU WAIT FOR MAHAPRASAD</figcaption>
+    </figure>
+
+    <figure>
+      <img src="image4.jpeg" alt="Memory 4" loading="lazy" onclick="openPhoto(this)">
+      <figcaption>BEST IMAGE OF PURI TRIP</figcaption>
+    </figure>
+
+    <figure>
+      <img src="image5.jpeg" alt="Memory 5" loading="lazy" onclick="openPhoto(this)">
+      <figcaption>UNFORGETTABLE MOMENT ON THE BENCH OF PW CLASSROOM</figcaption>
+    </figure>
+
+    <figure>
+      <img src="image6.jpeg" alt="Memory 6" loading="lazy" onclick="openPhoto(this)">
+      <figcaption>LIFETIME MEMORIES</figcaption>
+    </figure>
+
+    <figure>
+      <img src="image7.jpeg" alt="Memory 7" loading="lazy" onclick="openPhoto(this)">
+      <figcaption>BEST SELFIE AWARD OF 2024</figcaption>
+    </figure>
   </div>
 
   <div class="actions">
@@ -585,25 +621,25 @@ p {
   <h2>A letter<br>under the stars</h2>
 
   <div class="letter">
-   <h3>My Dear Rutu,</h3>
+    <h3>My Dear Rutu,</h3>
 
-<p>
-  I made this little world just for you, to remind you how special you are to me.
-  I hope every mountain brings you peace, every sunrise brings you happiness,
-  and every star reminds you that someone is always thinking of you with love. ❤️
-</p>
+    <p>
+      I made this little world just for you, to remind you how special you are to me.
+      I hope every mountain brings you peace, every sunrise brings you happiness,
+      and every star reminds you that someone is always thinking of you with love. ❤️
+    </p>
 
-<p>
-  There are so many things I want to tell you, but more than words,
-  I want to show you how much you mean to me through my love,
-  care, and little efforts. No matter what, you will always have
-  a special place in my heart.
-</p>
+    <p>
+      There are so many things I want to tell you, but more than words,
+      I want to show you how much you mean to me through my love,
+      care, and little efforts. No matter what, you will always have
+      a special place in my heart.
+    </p>
 
-<p>
-  With lots of love,<br>
-  <strong>Sampat ❤️</strong>
-</p>
+    <p>
+      With lots of love,<br>
+      <strong>Sampat ❤️</strong>
+    </p>
   </div>
 
   <div class="actions">
@@ -627,12 +663,12 @@ p {
 </main>
 
 <div class="music-dock">
-  <button id="musicToggle" onclick="toggleMusic()">▶</button>
+  <button id="musicToggle" onclick="toggleMusic()" aria-label="Play or pause music">▶</button>
   <span>BACKGROUND MUSIC</span>
 </div>
 
 <div class="lightbox" id="lightbox" onclick="closePhoto()">
-  <button onclick="closePhoto()">×</button>
+  <button type="button" onclick="closePhoto()" aria-label="Close photo">×</button>
   <img id="lightboxImage" alt="Expanded memory photo">
 </div>
 
@@ -751,4 +787,3 @@ document.addEventListener('keydown', event => {
 
 </body>
 </html>
-
