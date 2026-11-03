@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Everything in Rutu</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #09090d;
+  color: #f7f0e8;
+}
+
+#app {
+  min-height: 100vh;
+  overflow: hidden;
+  position: relative;
+  background: radial-gradient(ellipse at top, #38232b, #09090d 75%);
+}
+
+.sky {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.star {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #fff4d8;
+  box-shadow: 0 0 10px 2px #d6b477;
+  animation: twinkle 3s infinite alternate;
+}
+
+@keyframes twinkle {
+  from { opacity: .2; transform: scale(.7); }
+  to { opacity: 1; transform: scale(1.4); }
+}
+
+.mountain-art {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 350px;
+  pointer-events: none;
+}
+
+.waterfall-flow {
+  stroke-dasharray: 14 9;
+  animation: waterFlow 3s linear infinite;
+}
+
+@keyframes waterFlow {
+  to { stroke-dashoffset: -100; }
+}
+
+main {
+  position: relative;
+  z-index: 2;
+  width: min(760px, 100%);
+  min-height: 100vh;
+  margin: auto;
+  padding: 28px 20px 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.topline {
+  display: flex;
+  justify-content: space-between;
+  color: #d6b477;
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+
+.brand {
+  color: white;
+  font-family: Georgia, serif;
+  font-size: 18px;
+}
+
+.progress {
+  height: 3px;
+  background: #ffffff25;
+  margin-top: 18px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress span {
+  display: block;
+  height: 100%;
+  width: 14%;
+  background: linear-gradient(90deg, #8b263d, #d6b477);
+  transition: width .4s;
+}
+
+.page {
+  display: none;
+  flex: 1;
+  min-height: 570px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 45px 8px 150px;
+  animation: arrive .5s ease;
+}
+
+.page.active { display: flex; }
+
+@keyframes arrive {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.content {
+  width: 100%;
+  max-width: 590px;
+}
+
+.eyebrow {
+  color: #d6b477;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-size: 11px;
+  margin-bottom: 18px;
+}
+
+h1, h2 {
+  font-family: Georgia, serif;
+  font-weight: 400;
+  line-height: 1.12;
+  margin: 0 0 18px;
+}
+
+h1 { font-size: clamp(42px, 8vw, 72px); }
+h2 { font-size: clamp(34px, 6vw, 48px); }
+
+p {
+  color: #dedcf0;
+  line-height: 1.8;
+  font-size: 15px;
+  margin: 0 auto 24px;
+  max-width: 480px;
+}
+
+.accent {
+  color: #e2c28c;
+  font-style: italic;
+}
+
+.btn {
+  border: 1px solid #d6b47799;
+  background: linear-gradient(135deg, #762b3d, #4a202c);
+  color: white;
+  border-radius: 999px;
+  padding: 14px 25px;
+  font-size: 14px;
+  cursor: pointer;
+  margin: 5px;
+  box-shadow: 0 8px 28px #0008;
+}
+
+.btn.secondary {
+  background: #ffffff12;
+  box-shadow: none;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 25px;
+}
+
+.envelope {
+  width: 190px;
+  height: 132px;
+  margin: 25px auto;
+  position: relative;
+  background: #e6d8ee;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.envelope:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #c7b2d9;
+  clip-path: polygon(0 0, 50% 58%, 100% 0);
+  border-radius: 8px 8px 0 0;
+  z-index: 2;
+  transform-origin: top;
+  transition: transform .7s;
+}
+
+.envelope.open:before {
+  transform: rotateX(180deg);
+}
+
+.envelope:after {
+  content: "♥";
+  position: absolute;
+  top: 49px;
+  left: 78px;
+  color: #745a91;
+  font-size: 34px;
+  z-index: 3;
+}
+
+.note {
+  background: #f5efff;
+  color: #41364f;
+  border-radius: 14px;
+  padding: 24px;
+  max-width: 430px;
+  margin: auto;
+}
+
+.reveal {
+  min-height: 54px;
+  color: #f4dffb;
+  font-family: Georgia, serif;
+  font-size: 20px;
+  font-style: italic;
+}
+
+.constellation {
+  width: min(100%, 420px);
+  margin: 22px auto;
+  border: 1px solid #d6b47744;
+  border-radius: 16px;
+  background: radial-gradient(ellipse, #35232b, #0d0c12);
+}
+
+.constellation line {
+  stroke: #d6b47788;
+  stroke-width: 1.5;
+  stroke-dasharray: 4 5;
+}
+
+.constellation circle {
+  fill: #f5dca4;
+  stroke: #fff1c9;
+  stroke-width: 2;
+  cursor: pointer;
+  filter: drop-shadow(0 0 7px #d6b477);
+}
+
+.song-disc {
+  width: 145px;
+  height: 145px;
+  border-radius: 50%;
+  margin: 22px auto;
+  display: grid;
+  place-items: center;
+  background: repeating-radial-gradient(circle, #d6b477 0 2px, #482b30 3px 5px);
+  box-shadow: 0 0 45px #d6b47733;
+  animation: spin 12s linear infinite;
+}
+
+.song-disc span {
+  width: 43px;
+  height: 43px;
+  border-radius: 50%;
+  background: #29213c;
+  display: grid;
+  place-items: center;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.song-player {
+  width: min(100%, 360px);
+  margin: 18px auto;
+}
+
+.song-player audio { width: 100%; }
+
+.cake {
+  font-size: 94px;
+  margin: 10px 0;
+}
+
+.photo-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  max-width: 500px;
+  margin: 24px auto;
+}
+
+.photo-gallery img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border: 1px solid #d6b47799;
+  border-radius: 5px;
+  cursor: zoom-in;
+  background: #ffffff12;
+}
+
+.photo-gallery figure { margin: 0; }
+
+.photo-gallery figcaption {
+  color: #d6b477;
+  font-size: 11px;
+  margin-top: 6px;
+}
+
+.letter {
+  background: #f7f0e4;
+  color: #493b39;
+  text-align: left;
+  padding: 27px;
+  border-radius: 5px;
+  max-width: 500px;
+  margin: auto;
+}
+
+.letter h3 {
+  font-family: Georgia, serif;
+  font-weight: 400;
+  font-size: 25px;
+}
+
+.letter p {
+  color: #5a4c48;
+  font-family: Georgia, serif;
+  line-height: 1.75;
+}
+
+.music-dock {
+  position: fixed;
+  z-index: 8;
+  right: 16px;
+  bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 13px;
+  border: 1px solid #d6b47788;
+  border-radius: 30px;
+  background: #100d12;
+  color: white;
+}
+
+.music-dock button {
+  border: 0;
+  background: transparent;
+  color: #e2c28c;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.music-dock span {
+  font-size: 11px;
+}
+
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  background: #050408f2;
+  align-items: center;
+  justify-content: center;
+  padding: 22px;
+}
+
+.lightbox.open { display: flex; }
+
+.lightbox img {
+  max-width: 92vw;
+  max-height: 82vh;
+  object-fit: contain;
+  border: 1px solid #d6b477;
+}
+
+.lightbox button {
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #211711;
+  color: white;
+  font-size: 24px;
+}
+
+.final-reveal {
+  display: none;
+  margin: 22px auto;
+  padding: 24px;
+  max-width: 480px;
+  border: 1px solid #d6b47788;
+  background: #21151d;
+}
+
+.final-reveal.show { display: block; }
+
+.final-reveal strong {
+  display: block;
+  color: #e2c28c;
+  font: italic 30px Georgia, serif;
+  margin-bottom: 10px;
+}
+
+.celebration {
+  min-height: 28px;
+  font-size: 19px;
+}
+
+.footer {
+  text-align: center;
+  color: #b9b5d0;
+  font-size: 11px;
+  letter-spacing: 2px;
+}
+
+@media (max-width: 520px) {
+  main { padding: 22px 17px 28px; }
+  .page { min-height: 560px; }
+  .letter { padding: 21px; }
+}
+</style>
+</head>
+
+<body>
+<div id="app">
+
+<div class="sky" id="sky"></div>
+
+<svg class="mountain-art" viewBox="0 0 1200 360" preserveAspectRatio="xMidYMax slice">
+  <path d="M0 260 L180 80 L330 225 L520 40 L760 260 L930 100 L1200 300 L1200 360 L0 360Z" fill="#493039"/>
+  <path d="M0 300 L240 150 L390 285 L650 115 L900 300 L1060 175 L1200 290 L1200 360 L0 360Z" fill="#292027"/>
+  <path d="M0 330 L230 235 L420 330 L690 205 L900 340 L1080 240 L1200 310 L1200 360 L0 360Z" fill="#100f14"/>
+  <path d="M650 115 L635 150 L646 180 L630 214 L650 250 L638 285 L662 315 L680 360 L716 360 L694 315 L708 280 L690 245 L705 210 L684 178 L700 145 L680 125Z" fill="#b7d1d0" opacity=".78"/>
+  <path class="waterfall-flow" d="M662 150 Q675 190 661 225 T680 300 Q690 330 700 360" fill="none" stroke="#e2eee8" stroke-width="7"/>
+  <circle cx="990" cy="72" r="28" fill="#e2c28c"/>
+</svg>
+
+<main>
+
+<div class="topline">
+  <span class="brand">small gift for my rutu</span>
+  <span id="stepLabel">01 / 07</span>
+</div>
+
+<div class="progress"><span id="progressBar"></span></div>
+
+<!-- PAGE 1: WELCOME -->
+<section class="page active" data-page="0">
+<div class="content">
+  <div class="eyebrow">A little surprise, made with care</div>
+  <h1>Everything<br><span class="accent">in Rutu.</span></h1>
+  <p>Somewhere between quiet mountains, flowing waterfalls and a sky full of stars, I made a little world just for you.</p>
+  <button class="btn" onclick="go(1)">Enter your little world ✦</button>
+</div>
+</section>
+
+<!-- PAGE 2: SECRET ENVELOPE -->
+<section class="page" data-page="1">
+<div class="content">
+  <div class="eyebrow">First, something for you</div>
+  <h2>A tiny secret<br>is waiting...</h2>
+  <div class="envelope" id="secretEnvelope" onclick="revealEnvelope()"></div>
+  <div class="reveal" id="envelopeText">Tap the envelope to open it.</div>
+  <div class="actions">
+    <button class="btn secondary" onclick="go(0)">Back</button>
+    <button class="btn" onclick="go(2)">Next surprise</button>
+  </div>
+</div>
+</section>
+
+<!-- PAGE 3: STARS -->
+<section class="page" data-page="2">
+<div class="content">
+  <div class="eyebrow">Little things I want you to know</div>
+  <h2>A sky full<br>of little stars</h2>
+  <p>Tap each star and find a small message.</p>
+
+  <svg class="constellation" viewBox="0 0 360 220">
+    <line x1="58" y1="155" x2="142" y2="70"/>
+    <line x1="142" y1="70" x2="224" y2="132"/>
+    <line x1="224" y1="132" x2="302" y2="54"/>
+    <line x1="142" y1="70" x2="170" y2="183"/>
+
+    <circle cx="58" cy="155" r="8" onclick="showStar(0)"/>
+    <circle cx="142" cy="70" r="10" onclick="showStar(1)"/>
+    <circle cx="224" cy="132" r="8" onclick="showStar(2)"/>
+    <circle cx="302" cy="54" r="9" onclick="showStar(3)"/>
+    <circle cx="170" cy="183" r="7" onclick="showStar(4)"/>
+  </svg>
+
+  <div class="reveal" id="starMessage">Every star has a message for you.</div>
+
+  <div class="actions">
+    <button class="btn secondary" onclick="go(1)">Back</button>
+    <button class="btn" onclick="go(3)">Next surprise</button>
+  </div>
+</div>
+</section>
+
+<!-- PAGE 4: MUSIC -->
+<section class="page" data-page="3">
+<div class="content">
+  <div class="eyebrow">A moment to pause</div>
+  <h2>Your favourite<br>kind of sky</h2>
+  <div class="song-disc"><span>♫</span></div>
+  <p>Imagine your favourite song playing beneath this quiet sky.</p>
+
+  <div class="song-player">
+    <audio id="mainAudio" controls preload="none">
+      <source src="favourite_song.mp3" type="audio/mpeg">
+      Your browser does not support audio.
+    </audio>
+  </div>
+
+  <p style="font-size:12px;color:#bcb5d4">Your song: Na Roja Nuvve</p>
+
+  <div class="actions">
+    <button class="btn secondary" onclick="go(2)">Back</button>
+    <button class="btn" onclick="go(4)">Next surprise</button>
+  </div>
+</div>
+</section>
+
+<!-- PAGE 5: CAKE -->
+<section class="page" data-page="4">
+<div class="content">
+  <div class="eyebrow">Make a little wish</div>
+  <h2>A sweet moment<br>just for you</h2>
+  <div class="cake">🎂</div>
+  <p id="cakeText">Close your eyes, make a wish, and tap the button.</p>
+  <button class="btn" onclick="wish()">Make a wish ✨</button>
+  <div class="celebration" id="celebration"></div>
+
+  <div class="actions">
+    <button class="btn secondary" onclick="go(3)">Back</button>
+    <button class="btn" onclick="go(5)">Next surprise</button>
+  </div>
+</div>
+</section>
+
+<!-- PAGE 6: PHOTO GALLERY -->
+<section class="page" data-page="5">
+<div class="content">
+  <div class="eyebrow">A few moments, kept close</div>
+  <h2>Our little<br>memory corner</h2>
+  <p>Seven little frames for the moments you want to keep close.</p>
+
+  <div class="photo-gallery">
+    <figure><img src="IMAGE/image1.jpeg" alt="Memory 1" onclick="openPhoto(this)"><figcaption>OUR BEST DAY FOR EVER</figcaption></figure>
+    <figure><img src="IMAGE/image2.jpg" alt="Memory 2" onclick="openPhoto(this)"><figcaption>THE LOTUS EYES</figcaption></figure>
+    <figure><img src="IMAGE/image3.jpg" alt="Memory 3" onclick="openPhoto(this)"><figcaption>PRABHU WAIT FOR MAHAPRASAD</figcaption></figure>
+    <figure><img src="IMAGE/image4.jpeg" alt="Memory 4" onclick="openPhoto(this)"><figcaption>BEST IMAGE OF PURI TRIP</figcaption></figure>
+    <figure><img src="IMAGE/image5.jpeg" alt="Memory 5" onclick="openPhoto(this)"><figcaption>UNEXPLAED MOMENT ON THE BANCH OF PW CLASSROOM</figcaption></figure>
+    <figure><img src="IMAGE/image6.jpeg" alt="Memory 6" onclick="openPhoto(this)"><figcaption>LIFETIME MEMORIES</figcaption></figure>
+    <figure><img src="IMAGE/image7.jpeg" alt="Memory 7" onclick="openPhoto(this)"><figcaption>BEST SELFIE AWORD OF 2024</figcaption></figure>
+  </div>
+
+  <div class="actions">
+    <button class="btn secondary" onclick="go(4)">Back</button>
+    <button class="btn" onclick="go(6)">One last thing...</button>
+  </div>
+</div>
+</section>
+
+<!-- PAGE 7: FINAL LETTER -->
+<section class="page" data-page="6">
+<div class="content">
+  <div class="eyebrow">From my heart</div>
+  <h2>A letter<br>under the stars</h2>
+
+  <div class="letter">
+   <h3>My Dear Rutu,</h3>
+
+<p>
+  I made this little world just for you, to remind you how special you are to me.
+  I hope every mountain brings you peace, every sunrise brings you happiness,
+  and every star reminds you that someone is always thinking of you with love. ❤️
+</p>
+
+<p>
+  There are so many things I want to tell you, but more than words,
+  I want to show you how much you mean to me through my love,
+  care, and little efforts. No matter what, you will always have
+  a special place in my heart.
+</p>
+
+<p>
+  With lots of love,<br>
+  <strong>Sampat ❤️</strong>
+</p>
+  </div>
+
+  <div class="actions">
+    <button class="btn" onclick="revealFinal()">Open the final surprise ✦</button>
+  </div>
+
+  <div class="final-reveal" id="finalReveal">
+    <strong>Everything in Rutu.</strong>
+    <p>Some places are beautiful to visit. Some moments are beautiful to remember. And some people make the whole world feel a little more beautiful.</p>
+    <p>May every path lead you to mountains, waterfalls and dreams worth chasing. ✨</p>
+  </div>
+
+  <div class="actions">
+    <button class="btn secondary" onclick="go(5)">Back</button>
+    <button class="btn" onclick="go(0)">Replay our little world ↺</button>
+  </div>
+</div>
+</section>
+
+<div class="footer">MADE WITH CARE · JUST FOR YOU</div>
+</main>
+
+<div class="music-dock">
+  <button id="musicToggle" onclick="toggleMusic()">▶</button>
+  <span>BACKGROUND MUSIC</span>
+</div>
+
+<div class="lightbox" id="lightbox" onclick="closePhoto()">
+  <button onclick="closePhoto()">×</button>
+  <img id="lightboxImage" alt="Expanded memory photo">
+</div>
+
+</div>
+
+<script>
+const pages = [...document.querySelectorAll('.page')];
+
+function go(index) {
+  pages.forEach((page, i) => {
+    page.classList.toggle('active', i === index);
+  });
+
+  document.getElementById('stepLabel').textContent =
+    String(index + 1).padStart(2, '0') + ' / 07';
+
+  document.getElementById('progressBar').style.width =
+    ((index + 1) / pages.length * 100) + '%';
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function revealEnvelope() {
+  document.getElementById('secretEnvelope').classList.add('open');
+  document.getElementById('envelopeText').textContent =
+    'You deserve gentle days, beautiful views and countless reasons to smile. ❤️';
+}
+
+const starNotes = [
+  'You make ordinary moments feel meaningful.',
+  'I hope you always find a sky big enough for your dreams.',
+  'May life take you to every mountain you wish to see.',
+  'Keep shining, even on the quietest nights.',
+  'There are beautiful journeys still waiting for you.'
+];
+
+function showStar(index) {
+  document.getElementById('starMessage').textContent = starNotes[index];
+}
+
+function openPhoto(img) {
+  document.getElementById('lightboxImage').src = img.src;
+  document.getElementById('lightbox').classList.add('open');
+}
+
+function closePhoto() {
+  document.getElementById('lightbox').classList.remove('open');
+}
+
+function toggleMusic() {
+  const audio = document.getElementById('mainAudio');
+  const button = document.getElementById('musicToggle');
+
+  if (audio.paused) {
+    audio.play().then(() => {
+      button.textContent = 'Ⅱ';
+    }).catch(() => {
+      button.textContent = '▶';
+    });
+  } else {
+    audio.pause();
+    button.textContent = '▶';
+  }
+}
+
+document.getElementById('mainAudio').addEventListener('play', () => {
+  document.getElementById('musicToggle').textContent = 'Ⅱ';
+});
+
+document.getElementById('mainAudio').addEventListener('pause', () => {
+  document.getElementById('musicToggle').textContent = '▶';
+});
+
+function revealFinal() {
+  document.getElementById('finalReveal').classList.add('show');
+  document.getElementById('finalReveal').scrollIntoView({
+    behavior: 'smooth',
+    block: 'center'
+  });
+}
+
+function wish() {
+  document.getElementById('cakeText').textContent =
+    'May your wishes find their way to the brightest skies. ✨';
+
+  document.getElementById('celebration').textContent =
+    '✦ ✨ 🎉 ✨ ✦';
+
+  for (let i = 0; i < 24; i++) {
+    const spark = document.createElement('span');
+    spark.textContent = ['✦', '✧', '✨', '♥'][i % 4];
+
+    spark.style.cssText =
+      `position:fixed;left:${Math.random() * 96}vw;top:${Math.random() * 75}vh;z-index:10;pointer-events:none;font-size:20px;animation:twinkle 1s ease-out both`;
+
+    document.body.appendChild(spark);
+    setTimeout(() => spark.remove(), 1100);
+  }
+}
+
+const sky = document.getElementById('sky');
+
+for (let i = 0; i < 58; i++) {
+  const star = document.createElement('span');
+  star.className = 'star';
+  star.style.left = Math.random() * 100 + '%';
+  star.style.top = Math.random() * 72 + '%';
+  star.style.animationDelay = Math.random() * 4 + 's';
+  sky.appendChild(star);
+}
+
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape') closePhoto();
+});
+</script>
+
+</body>
+</html>
+
